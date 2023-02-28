@@ -106,7 +106,7 @@ async function label() {
     issue_number: issueNumber,
     labels: labels
   });
-  return `Updated labels in ${issueNumber}. Added: ${labelsToAdd}. Removed: ${labelsToRemove}. by: ${context.payload.repository.owner.login} name: ${context.payload.sender.type}`;
+  return `Updated labels in ${issueNumber}. Added: ${labelsToAdd}. Removed: ${labelsToRemove}.`;
 }
 
 label()
