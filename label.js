@@ -77,7 +77,7 @@ async function label() {
       return "No action being taken. Ignoring because one or more assignees have been added to the issue";
     }
   }
-
+  console.log(context.payload.issue);
   issueAuthor =  (context.payload.issue) ? context.payload.issue.user.login : '';
   prAuthor = (context.payload.pull_request) ? context.payload.pull_request.user.login : '';
   if ((developers.includes(issueAuthor)) || (developers.includes(prAuthor))) {
