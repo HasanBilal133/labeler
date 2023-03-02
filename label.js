@@ -60,6 +60,21 @@ async function label() {
   if (issueNumber === undefined) {
     return "No action being taken. Ignoring because issueNumber was not identified";
   }
+  
+  issueAuthor =  (context.payload.issue) ? context.payload.issue.user.login : '';
+  
+  var collaboratorsResponse = await octokit.request(`GET /repos/${ownerName}/${repoName}/collaborators`, {
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  })
+  var collaborators = collaboratorsResponse.data.filter(value => value.login === issueAuthor)
+  const authorRole = collaborators.length > 0 ? collaborators[0].role_name : '';
+
+  if (!trigerLabel.includes(authorRole)) {
+    return "No action being taken. Ignoring because this issue has been created by a developer.";
+  }
+  
   labelsToAdd = labelsToAdd.filter(value => ![""].includes(value));
 
   labelsToRemove = labelsToRemove.filter(value => ![""].includes(value));
@@ -78,21 +93,6 @@ async function label() {
       return "No action being taken. Ignoring because one or more assignees have been added to the issue";
     }
   }
-  
-  issueAuthor =  (context.payload.issue) ? context.payload.issue.user.login : '';
-  
-  var collaboratorsResponse = await octokit.request(`GET /repos/${ownerName}/${repoName}/collaborators`, {
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
-  var collaborators = collaboratorsResponse.data.filter(value => value.login === issueAuthor)
-  const authorRole = collaborators.length > 0 ? contribs[0].role_name : '';
-
-  if (!trigerLabel.includes(authorRole)) {
-    return "No action being taken. Ignoring because this issue has been created by a developer.";
-  }
-  
 
   let labels = updatedIssueInformation.data.labels.map(label => label.name);
   if (ignoreIfLabeled) {
