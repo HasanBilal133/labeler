@@ -70,6 +70,8 @@ async function label() {
   })
   var collaborators = collaboratorsResponse.data.filter(value => value.login === issueAuthor)
   const authorRole = collaborators.length > 0 ? collaborators[0].role_name : '';
+  console.log(collaborators)
+  console.log(authorRole)
 
   if (!trigerLabel.includes(authorRole)) {
     return "No action being taken. Ignoring because this issue has been created by a developer.";
