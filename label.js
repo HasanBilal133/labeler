@@ -62,6 +62,16 @@ async function label() {
   labelsToAdd = labelsToAdd.filter(value => ![""].includes(value));
 
   labelsToRemove = labelsToRemove.filter(value => ![""].includes(value));
+  
+  //test-------------
+  var contribs = await octokit.request('GET /repos/${ownerName}/${repoName}/collaborators', {
+    owner: ownerName,
+    repo: repoName,
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  })
+  console.log(contribs)
 
   // query for the most recent information about the issue. Between the issue being created and
   // the action running, labels or asignees could have been added
