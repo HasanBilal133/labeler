@@ -64,9 +64,7 @@ async function label() {
   labelsToRemove = labelsToRemove.filter(value => ![""].includes(value));
   
   //test-------------
-  var contribs = await octokit.request('GET /repos/${ownerName}/${repoName}/collaborators', {
-    owner: ownerName,
-    repo: repoName,
+  var contribs = await octokit.request(`GET /repos/${ownerName}/${repoName}/collaborators`, {
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
     }
