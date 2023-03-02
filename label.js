@@ -11,12 +11,6 @@ var labelsToRemove = core
   .getInput("remove-labels")
   .split(",")
   .map(x => x.trim());
-  
-
-  var developers = core
-  .getInput("developers")
-  .split(",")
-  .map(x => x.trim());
 
 /**
  * Obtain the issue number either from input or from the context
