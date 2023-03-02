@@ -69,7 +69,8 @@ async function label() {
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
-  console.log(contribs)
+  console.log(contribs.data[0])
+  console.log('\n_________________\n', contribs.data[0]['permissions'])
 
   // query for the most recent information about the issue. Between the issue being created and
   // the action running, labels or asignees could have been added
